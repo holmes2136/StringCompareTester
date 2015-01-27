@@ -43,22 +43,26 @@
             var str1 = $("#str1").val();
             var str2 = $("#str2").val();
 
-            $.ajax({
-                type: "GET",
-                async: true,
-                url: "Handler.ashx",
-                data: { str1: str1, str2: str2 }
-            }).done(function (resp) {
-                var $tr = $("#result").find("tbody tr");
-                var score1 = resp.jaro;
-                var score2 = resp.leven;
-                var score3 = resp.ngram;
-                $($tr[0]).find("td:eq(1)").text(score1);
-                $($tr[1]).find("td:eq(1)").text(score2);
-                $($tr[2]).find("td:eq(1)").text(score3);
-            }).fail(function (xhr) {
-                console.log(xhr);
-            });
+            if (str1 != '' && str2 != '') {
+
+                $.ajax({
+                    type: "GET",
+                    async: true,
+                    url: "Handler.ashx",
+                    data: { str1: str1, str2: str2 }
+                }).done(function (resp) {
+                    var $tr = $("#result").find("tbody tr");
+                    var score1 = resp.jaro;
+                    var score2 = resp.leven;
+                    var score3 = resp.ngram;
+                    $($tr[0]).find("td:eq(1)").text(score1);
+                    $($tr[1]).find("td:eq(1)").text(score2);
+                    $($tr[2]).find("td:eq(1)").text(score3);
+                }).fail(function (xhr) {
+                    console.log(xhr);
+                });
+            }
+          
 
         });
     
