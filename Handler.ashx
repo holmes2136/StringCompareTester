@@ -20,12 +20,14 @@ public class Handler : IHttpHandler {
 
         float score1 = JaroWinklerDistance.GetDistance(str1, str2);
         float score2 = LevenshteinDistance.GetDistance(str1, str2);
+        float score3 = new NGramDistance().GetDistance(str1, str2);
         
         context.Response.ContentType = "application/json";
         Dictionary<string, float> result = new Dictionary<string, float>();
         result.Add("jaro", score1);
         result.Add("leven", score2);
-
+        result.Add("ngram", score3);
+        
         string json = new JavaScriptSerializer().Serialize(result);        
         resp.Write(json);
         
